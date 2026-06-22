@@ -21,5 +21,9 @@ cur.execute(
 )
 
 row = cur.fetchone()
+exp_id = row[0]
+csv_path = f"submissions/{exp_id}.csv"
 
 print(row)
+print("csv_path =", csv_path)
+print("exists =", os.path.exists(csv_path))
