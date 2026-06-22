@@ -1,0 +1,48 @@
+name: Kaggle Submit
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Install Kaggle
+        run: |
+          pip install -U kaggle
+
+      - name: Show Version
+        run: |
+          kaggle --version
+
+      - name: Check Secrets
+        env:
+          KAGGLE_USERNAME: ${{ secrets.KAGGLE_USERNAME }}
+          KAGGLE_KEY: ${{ secrets.KAGGLE_KEY }}
+        run: |
+          echo "username_len=${#KAGGLE_USERNAME}"
+          echo "key_len=${#KAGGLE_KEY}"
+
+      - name: Setup Access Token
+        run: |
+          mkdir -p ~/.kaggle
+          echo "${{ secrets.KAGGLE_KEY }}" > ~/.kaggle/access_token
+          chmod 600 ~/.kaggle/access_token
+
+      - name: Debug Files
+        run: |
+          ls -la ~/.kaggle
+          wc -c ~/.kaggle/access_token
+
+      - name: Install Dependencies
+        run: |
+          pip install psycopg2-binary kaggle
+      
+      - name: Run Submit Script
+        env:
+          NEON_DATABASE_URL: ${{ secrets.NEON_DATABASE_URL }}
+        run: |
+          python submit.py
