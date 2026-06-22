@@ -1,0 +1,4 @@
+- name: Check submissions
+  run: |
+    kaggle competitions submissions \
+      -c playground-series-s6e6
