@@ -11,18 +11,15 @@ cur.execute(
     """
     SELECT
         exp_id,
-        competition,
-        ensemble_cv_accuracy
+        competition
     FROM experiments
     WHERE competition = 'playground-series-s6e6'
       AND submitted = FALSE
-    ORDER BY ensemble_cv_accuracy DESC
+    ORDER BY created_at DESC
     LIMIT 1
     """
 )
 
 row = cur.fetchone()
 
-print("candidate:", row)
-
-conn.close()
+print(row)
