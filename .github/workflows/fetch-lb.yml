@@ -1,0 +1,27 @@
+name: Fetch LB
+
+on:
+  workflow_dispatch:
+
+jobs:
+  fetch-lb:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Install dependencies
+        run: |
+          pip install -U kaggle psycopg2-binary
+
+      - name: Setup Kaggle API
+        run: |
+          mkdir -p ~/.kaggle
+          echo "${{ secrets.KAGGLE_KEY }}" > ~/.kaggle/access_token
+          chmod 600 ~/.kaggle/access_token
+
+      - name: Fetch LB
+        env:
+          NEON_DATABASE_URL: ${{ secrets.NEON_DATABASE_URL }}
+        run: |
+          python fetch_lb.py
