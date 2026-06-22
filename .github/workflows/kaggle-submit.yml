@@ -40,13 +40,14 @@ jobs:
       - name: Install Dependencies
         run: |
           pip install psycopg2-binary kaggle
-
-      - name: Test Kaggle
-        run: |
-          kaggle competitions list
       
       - name: Run Submit Script
         env:
           NEON_DATABASE_URL: ${{ secrets.NEON_DATABASE_URL }}
         run: |
           python submit.py
+      
+      - name: Check submissions
+        run: |
+          kaggle competitions submissions \
+            -c playground-series-s6e6
