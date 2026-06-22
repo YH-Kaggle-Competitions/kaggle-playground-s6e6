@@ -2,9 +2,12 @@ name: Kaggle Submit
 
 on:
   workflow_dispatch:
+  
+  schedule:
+    - cron: '0 * * * *'
 
 jobs:
-  test:
+  kaggle-submit:
     runs-on: ubuntu-latest
 
     steps:
