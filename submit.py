@@ -1,9 +1,9 @@
 import os
 import psycopg2
 
-DATABASE_URL = os.environ["NEON_DATABASE_URL"]
-
-conn = psycopg2.connect(DATABASE_URL)
+conn = psycopg2.connect(
+    os.environ["NEON_DATABASE_URL"]
+)
 
 cur = conn.cursor()
 
@@ -11,17 +11,18 @@ cur.execute(
     """
     SELECT
         exp_id,
+        competition,
         ensemble_cv_accuracy
     FROM experiments
-    WHERE submitted = FALSE
-    ORDER BY created_at DESC
+    WHERE competition = 'playground-series-s6e6'
+      AND submitted = FALSE
+    ORDER BY ensemble_cv_accuracy DESC
     LIMIT 1
     """
 )
 
 row = cur.fetchone()
 
-print("latest experiment:")
-print(row)
+print("candidate:", row)
 
 conn.close()
