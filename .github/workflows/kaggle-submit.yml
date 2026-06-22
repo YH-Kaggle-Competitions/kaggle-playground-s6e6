@@ -40,6 +40,12 @@ jobs:
       - name: Install Dependencies
         run: |
           pip install psycopg2-binary kaggle
+
+      - name: Setup Kaggle API
+        run: |
+          mkdir -p ~/.kaggle
+          echo "${{ secrets.KAGGLE_KEY }}" > ~/.kaggle/access_token
+          chmod 600 ~/.kaggle/access_token
       
       - name: Run Submit Script
         env:
