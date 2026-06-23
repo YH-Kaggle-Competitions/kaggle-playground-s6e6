@@ -1,10 +1,9 @@
-name: Kaggle Submit
+name: Auto Submit
 
 on:
-  workflow_dispatch:
-  
-  schedule:
-    - cron: '0 * * * *'
+  push:
+    paths:
+      - 'submissions/*.csv'
 
 jobs:
   kaggle-submit:
