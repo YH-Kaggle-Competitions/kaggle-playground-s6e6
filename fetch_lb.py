@@ -31,8 +31,8 @@ cur.execute(
 pending = [row[0] for row in cur.fetchall()]
 
 for exp_id in pending:
-    filename = f"{exp_id}.csv"
-
+    # filename = f"{exp_id}.csv"
+    filename = f"submission.csv"
     for line in lines:
         if filename in line and "COMPLETE" in line:
             parts = line.split()
