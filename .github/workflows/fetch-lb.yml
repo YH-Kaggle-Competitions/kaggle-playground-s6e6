@@ -3,9 +3,9 @@ name: Fetch LB
 on:
   workflow_dispatch:
   
-  schedule:
-    - cron: '0 * * * *'
-    - cron: '30 * * * *'
+  # schedule:
+  #   - cron: '0 * * * *'
+  #   - cron: '30 * * * *'
 
 jobs:
   fetch-lb:
